@@ -1,0 +1,19 @@
+%%% ACCESS DATA ANALYSIS
+
+% Total Communication Duration
+totalTime = sum(accessDuration, 'all');
+disp(['Total Time (sec): ', num2str(totalTime)])
+disp(['Total Time (min): ', num2str(totalTime/60)])
+disp(['Total Time (hrs): ', num2str(totalTime/60/24)])
+
+% Histogram of Access Durations (to see variability)
+histogram(accessDuration, 10)
+
+% Data Analysis (run script)
+dataAnalysis
+
+% Data Rate and the Related
+n = 2; % Safety Factor (assuming terrible conditions or something idk)
+dataRate = (totalData*(5000/3)/totalTime)*(1/n);
+% 5000 hours per year, 
+
