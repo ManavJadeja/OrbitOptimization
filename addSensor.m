@@ -1,6 +1,7 @@
+function [sensor] = addSensor(facility, gssName, gssRange, gssAngle)
 %%% SENSOR PROPERTIES
 % Add sensor object to satellite
-sensor = facility.Children.New('eSensor', 'Sensor');
+sensor = facility.Children.New('eSensor', gssName);
 
 % Modify sensor properties
 sensor.CommonTasks.SetPatternSimpleConic(90, 1);
@@ -9,15 +10,15 @@ sensor.CommonTasks.SetPatternSimpleConic(90, 1);
 range = sensor.AccessConstraints.AddConstraint('eCstrRange');
 range.EnableMin = true;
 range.EnableMax = true;
-range.min = 0;
-range.max = 1500;
+range.min = gssRange(1);
+range.max = gssRange(2);
 
 % Add elevation angle constraint
 elevation_angle = sensor.AccessConstraints.AddConstraint('eCstrElevationAngle');
 elevation_angle.EnableMin = true;
 elevation_angle.EnableMax = true;
-elevation_angle.Min = 45;
-elevation_angle.Max = 80;
+elevation_angle.Min = gssAngle(1);
+elevation_angle.Max = gssAngle(2);
 
 % Show elevation angle constraint (for graphics)
 view = sensor.Graphics.Projection;
@@ -28,3 +29,4 @@ view.UseConstraints = true;
 
 % Done
 disp("Sensor Created")
+end

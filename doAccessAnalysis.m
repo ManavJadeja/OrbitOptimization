@@ -1,4 +1,14 @@
 %%% ACCESS DATA ANALYSIS
+% Compute access between objects (satellite > facility)
+access = satellite.GetAccessToObject(sensor);
+access.ComputeAccess();
+
+%Get computed access intervals
+intervalCollection = access.ComputedAccessIntervalTimes;
+computedIntervals = intervalCollection.ToArray(0, -1);
+access.SpecifyAccessIntervals(computedIntervals);
+disp(computedIntervals)
+disp("Access Computed")
 
 % Get Access Data
 accessDP = access.DataProviders.Item('Access Data').Exec(scenario.StartTime, scenario.StopTime);
@@ -21,6 +31,7 @@ histogram(accessDuration, 10)
 
 % Data Analysis (run script)
 disp('Data Analysis')
+disp('-------------')
 dataAnalysis
 disp('-------------')
 

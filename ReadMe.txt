@@ -32,7 +32,7 @@ Thought Process:
 
 
 Synopsis of Code:
-0) File to Run
+0) File name
 	-Purpose 1
 	-Purpose 2
 1) basicInfo.m
@@ -66,6 +66,22 @@ Synopsis of Code:
 		-Confirm that this is within communication system capabilities
 
 
+How to Run:
+1) basicInfo.m
+	-Has information for optimization
+		-Scenario: Start and Stop times
+		-Facility+Sensor: Location, range, and angle
+		-Satellite: Orbit parameters (ranges)
+		-Access: required duration (predefined) and safety margin
+2) startSTK.m
+	-Starts STK and loads scenario information
+3) addEverything.m
+	-Add and modify singular objects (facility and sensor)
+	-Satellites added, modified, tested, color-coded
+		-Adds a satellite with parameters (one by one)
+		-Propogates and performs access computation
+		-Color coded graphics based on access requirements
+	
 About:
 Written by me over the summer. 
 Things I don't know: (so don't ask)

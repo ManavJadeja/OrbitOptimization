@@ -3,8 +3,8 @@
 
 
 %%% EXPERIMENT INFORMATION
-disp('Experiment Data per Orbit')
-disp('-------------------------')
+disp('Data per Experiment')
+disp('-------------------')
 
 % Experiment Duration and Sampling
 experimentDuration = 600; % seconds (want to do -100 to 600 so leave 1 extra bit?)
@@ -17,7 +17,7 @@ experimentBytes = minimumBytes(experimentClock);
 % Experiments per orbit
 % NEED TO CONFIRM THIS INFORMATION > I THINK ITS 2-3 EXPERIMENTS PER ORBIT
 numExperiments = 3; % Number of experiments per orbit (30 min out of 90)
-experimentDataTotal = numExperiments*experimentBytes*experimentClock/1e6;
+experimentDataTotal = experimentBytes*experimentClock/1e6;
 clock_string = ['Clock:   ', num2str(experimentDataTotal), ' MB'];
 disp(clock_string)
 % USE THERMAL AND POWER SIM TO CONFIRM THIS^^^
@@ -71,12 +71,13 @@ sensorStats = [
 
 % Sensor Data (All sensors for 10 min experiment)
 sensorsOneDataPoint = sum(sensorStats(:,1).*sensorStats(:,2));
-sensorDataTotal = numExperiments*sensorsOneDataPoint*experimentClock/1e6;
+sensorDataTotal = sensorsOneDataPoint*experimentClock/1e6;
 sensor_string = ['Sensors: ', num2str(sensorDataTotal), ' MB'];
 disp(sensor_string)
 
 
 %%% SATELLITE STATUS DATA
+disp(' ')
 disp('Satellite Data per Orbit')
 disp('------------------------')
 

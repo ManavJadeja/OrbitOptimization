@@ -1,6 +1,7 @@
+function [satellite] = addSatellite(root, scenario, sensor, requiredTime, threshold, name, semimajorAxis, inclination, eccentricity, argPerigee, ascNode, location)
 %%% SATELLITE PROPERTIES
 % Add satellite object
-satellite = root.CurrentScenario.Children.New('eSatellite', 'SPICESat');
+satellite = root.CurrentScenario.Children.New('eSatellite', name);
 
 % Modify satellite properties
 keplerian = satellite.Propagator.InitialState.Representation.ConvertTo('eOrbitStateClassical'); % Use the Classical Element interface
@@ -9,20 +10,28 @@ keplerian.LocationType = 'eLocationTrueAnomaly'; % Makes sure True Anomaly is be
 keplerian.Orientation.AscNodeType = 'eAscNodeRAAN'; % Use RAAN for data entry
 
 % Assign the perigee and apogee altitude values:
-keplerian.SizeShape.SemimajorAxis = 500+6878;   % km
-keplerian.SizeShape.Eccentricity = 0;           % circle
+keplerian.SizeShape.SemimajorAxis = semimajorAxis;
+keplerian.SizeShape.Eccentricity = eccentricity;
 
 % Assign the other desired orbital parameters:
-keplerian.Orientation.Inclination = 90;         % deg
-keplerian.Orientation.ArgOfPerigee = 12;        % deg
-keplerian.Orientation.AscNode.Value = 24;       % deg
-keplerian.Location.Value = 180;                 % deg
+keplerian.Orientation.Inclination = inclination;
+keplerian.Orientation.ArgOfPerigee = argPerigee;
+keplerian.Orientation.AscNode.Value = ascNode;
+keplerian.Location.Value = location;
 
 % Apply the changes made to the satellite's state and propagate:
 satellite.Propagator.InitialState.Representation.Assign(keplerian);
 satellite.Propagator.Propagate;
-root.Rewind
-disp("Satellite Created")
+
+% Get Access (Satellite to Sensor)
+colorDecimal = getAccess(scenario, satellite, sensor, requiredTime, threshold);
+
+% Satellite Graphics
+graphics = satellite.Graphics;
+graphics.SetAttributesType('eAttributesBasic');
+attributes = graphics.Attributes;
+attributes.Inherit = false;
+attributes.Color = colorDecimal;
 
 %{
 % Change model of satellite (learn how to make a .dae file)
@@ -35,3 +44,4 @@ disp("Satellite Model Updated")
 resolution = satellite.Graphics.Resolution;
 resolution.Orbit = 60;
 %}
+end

@@ -1,7 +1,11 @@
+function [facility] = addFacility(root, gsName, gsLocation)
 %%% FACILITY PROPERTIES
 % Add facility object
-facility = root.CurrentScenario.Children.New('eFacility', facility_name);
+facility = root.CurrentScenario.Children.New('eFacility', gsName);
 
 % Modify facility properties
-facility.Position.AssignGeodetic(facility_location(1), facility_location(2), facility_location(2)) % Latitude, Longitude, Altitude
+facility.Position.AssignGeodetic(gsLocation(1), gsLocation(2), gsLocation(3)) % Latitude, Longitude, Altitude
+
+% Done
 disp("Facility Created")
+end
