@@ -11,7 +11,7 @@ try
     totalTime = sum(accessDuration, 'all');
     % disp(totalTime)
 catch
-    % totalTime = 0;
+    totalTime = 0;
     % disp('No Access Found')
 end
 
