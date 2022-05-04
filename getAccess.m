@@ -1,4 +1,4 @@
-function [colorDecimal] = getAccess(scenario, satellite, sensor, requiredTime, threshold)
+function [colorDecimal, rgbMatrix] = getAccess(scenario, satellite, sensor, requiredTimes)
 %%% GETACCESS > Get Access between two objects
 % Compute access between objects (satellite > facility)
 access = satellite.GetAccessToObject(sensor);
@@ -16,7 +16,7 @@ catch
 end
 
 % Color Coding
-colorDecimal = colorCoding(totalTime, requiredTime, threshold);
+[colorDecimal, rgbMatrix] = colorCoding(totalTime, requiredTimes);
 end
 
 

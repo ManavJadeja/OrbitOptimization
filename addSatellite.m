@@ -1,4 +1,4 @@
-function [satellite] = addSatellite(root, scenario, sensor, requiredTime, threshold, name, semimajorAxis, inclination, eccentricity, argPerigee, ascNode, location)
+function [satellite, rgbMatrix] = addSatellite(root, scenario, sensor, requiredTimes, name, semimajorAxis, inclination, eccentricity, argPerigee, ascNode, location)
 %%% SATELLITE PROPERTIES
 % Add satellite object
 satellite = root.CurrentScenario.Children.New('eSatellite', name);
@@ -24,7 +24,7 @@ satellite.Propagator.InitialState.Representation.Assign(keplerian);
 satellite.Propagator.Propagate;
 
 % Get Access (Satellite to Sensor)
-colorDecimal = getAccess(scenario, satellite, sensor, requiredTime, threshold);
+[colorDecimal, rgbMatrix] = getAccess(scenario, satellite, sensor, requiredTimes);
 
 % Satellite Graphics
 graphics = satellite.Graphics;

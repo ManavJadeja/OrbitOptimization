@@ -1,4 +1,4 @@
-function [colorDecimal] = colorCoding(totalTime, requiredTime, threshold)
+function [colorDecimal, rgbMatrix] = colorCoding(totalTime, requiredTimes)
 %%% COLORCODING > Color coding the satellite orbits
 %{
 Function Information
@@ -12,16 +12,34 @@ Function Information
 Written by Manav Jadeja, 2021
 %}
 
-if (totalTime > requiredTime*(1+threshold))
-    colorDecimal = 16776960;        % Cyan > Good and above threshold
-elseif (totalTime > requiredTime)
-    colorDecimal = 65280;           % Green > Good, not above threshold
-elseif (totalTime > requiredTime*(1-threshold))
-    colorDecimal = 65535;           % Yellow > Near, below threshold
+% Colors
+cyan = [0 255 255];
+green = [0 255 0];
+yellow = [255 255 0];
+red = [255 0 0];
+white = [255 255 255];
+
+% Assigning Colors
+if (totalTime > requiredTimes(3))
+    % Above Desired
+    colorDecimal = rgb2StkColor(cyan);
+    rgbMatrix = cyan;
+elseif (totalTime > requiredTimes(2))
+    % Above Good
+    colorDecimal = rgb2StkColor(green);
+    rgbMatrix = green;
+elseif (totalTime > requiredTimes(1))
+    % Above Minimum
+    colorDecimal = rgb2StkColor(yellow);
+    rgbMatrix = yellow;
 elseif (totalTime > 0)
-    colorDecimal = 255;             % Red > Below required threshold
+    % Below Minimum
+    colorDecimal = rgb2StkColor(red);
+    rgbMatrix = red;
 else
-    colorDecimal = 16777215;        % White > No Access
+    % No Access
+    colorDecimal = rgb2StkColor(white);
+    rgbMatrix = white;
 end
 
 end
