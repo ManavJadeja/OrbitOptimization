@@ -16,9 +16,6 @@ for a = 1:length(semimajorAxis)
 end
 disp('Satellites Created')
 
-% Plot for saving some data
-imshow(imresize(color, 20, 'nearest'))
-
 % Reset Scenario
 root.Rewind
 disp('Done')
