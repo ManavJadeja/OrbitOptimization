@@ -1,4 +1,4 @@
-What even do I put here 
+What even do I put here
 
 Note: This is a work in progress, things labelled 'ND' are 'Not Done'
 
